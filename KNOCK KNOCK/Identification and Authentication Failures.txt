@@ -120,8 +120,12 @@ if __name__ == '__main__':
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Conclusion
+------------
+Identification and Authentication Failures encompass a large number of different potential vulnerabilities and weaknesses. While weak encryption and a lack of anti-automation may affect a 
+system, we also saw how poor coding practices around MFA solutions can greatly impact a system’s overall position against identification and authentication attacks.
 
-
+While by no means a new technology, MFA is still vulnerable to many issues, as with any code. Even now, new attacks are regularly reported against organizations.
 
 
 
