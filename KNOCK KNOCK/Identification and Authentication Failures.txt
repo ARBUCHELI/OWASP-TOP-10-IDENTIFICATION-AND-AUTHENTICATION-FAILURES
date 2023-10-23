@@ -83,6 +83,43 @@ if __name__ == '__main__':
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* An Example of A Secure MFA Script
+-----------------------------------
+Let us look at this updated code. While random may seem like a great way to generate random data, we can see how unrandom it can be in practice. We eliminate any randomness from our code 
+using a predictable seed value.
+
+While this may make it difficult to find a truly random value, the good news is that libraries and modules are usually built into most programming languages designed to generate truly 
+secure cryptographic values. In Python, one such library is Secrets.
+
+In our newest code, we can see how much simpler and more effective our function is. By using an import, we can now generate truly random tokens.
+
+In the terminal, let’s run the new code by typing python3 generate_code_secure.py. We’ll receive a return statement with a truly random secret.
+
+It is important to note that designing our MFA solution introduces its own risks. All responsibility and maintenance fall onto our internal teams when using a custom solution. These 
+developers must continually monitor threat feeds to look for any vulnerabilities in their chosen language that may impact their generation code, and they must also monitor and handle the 
+responsibility of securely delivering these codes.
+
+If possible, using a third-party solution may be beneficial for many organizations. Apps such as Google Authenticator and many others provide users with a safe, trusted, and time-proven 
+method for generating, managing, and delivering MFA codes. Additionally, while transfer methods such as Email and SMS may seem easy, they are vulnerable to their risks. Emails can be 
+intercepted, and accounts can be compromised. Additionally, SMS is vulnerable to SIM swapping attacks which while not always easy to execute, can be achieved by most competent attackers.
+
+generate_code_secure.py
+-----------------------
+import secrets
+
+def generate_secure_code():
+    code = (secrets.token_urlsafe())
+    print(code)
+    return code
+
+def main():
+    generate_secure_code()
+
+if __name__ == '__main__':
+    main()
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
