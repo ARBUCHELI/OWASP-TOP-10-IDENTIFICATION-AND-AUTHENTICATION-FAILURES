@@ -1,0 +1,115 @@
+# IDENTIFICATION AND AUTHENTICATION FAILURES
+--------------------------------------------
+
+* Introduction
+--------------
+Many modern applications are built specifically with a user in mind. Whether this user is an actual person or another service, these applications must contain a method to control these 
+interactions properly. To do this, we must ensure we employ identification and authentication concepts correctly. In short, identification focuses on identifying each unique user while 
+authentication focuses on validating said identity. In most environments, something such as a username will help identify a user, while their password/token validates they are who they 
+say they are. Although this sounds simple, it is quite complex and vulnerable to many attacks in practice.
+
+While we have already seen how some attacks may threaten this process, the truth is there is much more risk than things such as SQL injections. Many vulnerability types exist under this 
+category, including the following.
+
+	. A lack of anti-automation allowing for brute forcing attacks.
+
+	. The allowance of weak/insecure passwords.
+
+	. Weak/Insecure password recovery methods.
+
+	. Failing to use encryption.
+
+	. Failing to invalidate expired/inactive sessions.
+	
+	. Exposing sensitive information via easily viewable areas such as URLs.
+
+	. Poor Multi-Factor Authentication (MFA) methods.
+
+While we have explored how some of these issues, such as poor encryption and anti-automation, may impact a system’s overall security, in the following exercises, we will look at the 
+dangers and potential shortcomings of custom-built MFA solutions.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* An Example of An Insecure MFA Generation Script
+-------------------------------------------------
+Multi-factor authentication (MFA) has become a staple within many applications. While this technology hasn’t always been widespread, it has become the modern expectation. While a secure 
+password is a great step in the right direction, it is hardly enough to secure a modern user account. An attacker can easily circumvent or steal a password with the right exploit or 
+phishing link. When this happens (not if), MFA solutions can provide the needed layer of security to prevent even worse damage.
+
+While MFA is an important barrier to preventing compromising an account, any generated codes and their surrounding process must occur securely. Failure to generate cryptographically 
+secure codes or process them securely can expose a system to numerous attacks. Let us take a look at the code sample to our right.
+
+In the sample, we have a function. In the function, we declared an input statement to retrieve a time from the user. If the user gives a time, the code will continue with that time. If 
+not, the code will supply a time. From there, we have a call to the random object. We pass the time to this object. It then prints and returns a “random” value as our MFA code.
+
+We can run this code by typing python3 generate_code.py in the terminal. Run the code several times and it will change the output thus, appearing secure. However, it is not actually 
+secure. If we provide one of the older time values we received, we will see an unfortunate output. Despite using the random function, the code returns the same output each time. This is 
+because of the way we are generating these codes based on our seed value. While something like a random function may seem random, we must properly review our code for insecure methods. 
+Since our seed value is not truly random, relying only on the current time, an attacker could easily generate these MFA tokens themselves.
+
+In the next exercise, we’ll change our method so that the generated codes are truly random and secure.
+
+generate.code.py
+----------------
+
+
+
+
+import random
+import time
+
+
+def generate_code():
+    input_time = input("Enter a time, or leave blank to use the current time for seed value: ")
+    if len(input_time)==0:
+        time_seed = time.time()
+        time_seed = int(time_seed)
+    else:
+        time_seed = int(input_time)
+
+    random.seed(time_seed)
+
+    code = (random.random())
+
+    print("Code:", code)
+
+    return code
+
+def main():
+    generate_code()
+
+if __name__ == '__main__':
+    main()
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
